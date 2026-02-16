@@ -1,0 +1,69 @@
+---
+import { cn } from '../../utils/merge';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const aspects = [
+  {
+    label: 'Choose your LLM',
+    description: 'Swap in GPT-4o, Claude, Gemini, Llama, or any OpenAI-compatible model.',
+    tag: 'BYO Model',
+  },
+  {
+    label: 'Custom MCP servers',
+    description: 'Plug in your own tool servers — private APIs, internal databases, or bespoke logic.',
+    tag: 'Pro',
+  },
+  {
+    label: 'System prompts',
+    description: 'Define persona, constraints, and domain expertise with editable instructions.',
+    tag: 'All plans',
+  },
+  {
+    label: 'Sandbox environment',
+    description: 'Configure CPU, RAM, disk, and runtime — or bring your own E2B sandbox.',
+    tag: 'Configurable',
+  },
+  {
+    label: 'Connector permissions',
+    description: 'Grant read-only or read-write access per integration. Scope what your agent can touch.',
+    tag: 'Granular',
+  },
+  {
+    label: 'Output format',
+    description: 'JSON, Markdown, CSV, HTML — define the structure of every response.',
+    tag: 'Flexible',
+  },
+] as const;
+---
+
+<section id="finetune" class={cn('section-divider py-12 lg:py-24', className)} aria-labelledby="finetune-heading">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div class="mb-12 lg:mb-16" data-animate>
+      <h2 id="finetune-heading" class="text-3xl font-semibold leading-[0.95] tracking-tight sm:text-4xl lg:text-5xl">
+        Finetune every aspect of your agent
+      </h2>
+      <p class="mt-5 max-w-2xl text-base text-dark/60 sm:text-lg">
+        Midsphere isn't a black box. Swap models, wire in custom tools, shape behaviour — make it yours.
+      </p>
+    </div>
+
+    <div class="divide-y divide-dark/[0.06]" data-animate data-delay="1">
+      {aspects.map((aspect) => (
+        <div class="flex items-baseline justify-between gap-4 py-5 sm:gap-8">
+          <div class="min-w-0">
+            <h3 class="text-base font-semibold sm:text-lg">{aspect.label}</h3>
+            <p class="mt-1 text-sm text-dark/50">{aspect.description}</p>
+          </div>
+          <span class="shrink-0 rounded-full bg-dark/[0.04] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-dark/40">
+            {aspect.tag}
+          </span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

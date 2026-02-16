@@ -1,0 +1,55 @@
+---
+import { cn } from '../../utils/merge';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const benchmarks = [
+  { name: 'GAIA Test', description: 'GPT-4o, full pipeline', value: '70.74', suffix: '%' },
+  { name: 'GAIA Validation', description: 'GPT-4o, full pipeline', value: '86', suffix: '%' },
+  { name: 'Terminal Bench', description: 'GPT-4o, full pipeline', value: '35.2', suffix: '%' },
+  { name: 'IMO 2025', description: 'Mathematical olympiad', value: '5.5', suffix: '/6' },
+];
+---
+
+<section id="benchmarks" class={cn('section-divider py-16 lg:py-28', className)} aria-labelledby="benchmarks-heading">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+
+    <!-- Header -->
+    <div class="mb-14 text-center lg:mb-20" data-animate>
+      <span class="inline-flex items-center rounded-full bg-coral/10 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-coral">
+        Performance
+      </span>
+      <h2 id="benchmarks-heading" class="mt-5 text-3xl font-semibold leading-[0.95] tracking-tight sm:text-4xl lg:text-5xl">
+        Built for performance
+      </h2>
+      <p class="mx-auto mt-4 max-w-xl text-base text-dark/50 sm:text-lg">
+        Industry-leading benchmarks across reasoning, coding, and real-world tasks.
+      </p>
+    </div>
+
+    <!-- Primary stats — vertical list -->
+    <div class="divide-y divide-dark/[0.06]" data-animate data-delay="1">
+      {benchmarks.map((b) => (
+        <div class="flex items-baseline justify-between py-8 first:pt-0 last:pb-0">
+          <div>
+            <div class="text-sm font-semibold text-dark/70">{b.name}</div>
+            <div class="mt-1 text-xs text-dark/40">{b.description}</div>
+          </div>
+          <div class="flex items-baseline gap-0.5">
+            <span class="text-4xl font-bold tracking-tight sm:text-5xl">{b.value}</span>
+            <span class="text-xl font-semibold text-dark/25 sm:text-2xl">{b.suffix}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Footnote -->
+    <p class="mt-12 text-center text-[11px] text-dark/30 lg:mt-16">
+      All benchmarks tested with specified model configurations. Results may vary based on task complexity.
+    </p>
+  </div>
+</section>

@@ -1,0 +1,55 @@
+---
+import { cn } from '../../utils/merge';
+
+interface Props {
+  href?: string;
+  isPrimary?: boolean;
+  isBordered?: boolean;
+  class?: string;
+  disabled?: boolean;
+  [key: string]: any;
+}
+
+const { href, isPrimary = false, isBordered = false, class: className, disabled = false, ...rest } = Astro.props;
+
+const isLink = !!href;
+
+const baseLink = 'flex items-center justify-center gap-2 rounded-xl px-6 py-4 transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]';
+const baseButton = 'flex items-center justify-center gap-2 rounded-lg px-6 py-3 transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]';
+
+const variantClasses = isPrimary
+  ? isLink
+    ? 'bg-dark text-paper shadow-lg hover:shadow-xl hover:bg-dark/90'
+    : 'bg-dark text-paper shadow-md hover:shadow-lg hover:bg-dark/90'
+  : isBordered
+    ? 'border-2 border-dark/80 hover:border-dark hover:bg-dark hover:text-paper hover:shadow-sm'
+    : isLink
+      ? 'bg-subtle'
+      : '';
+
+const classes = cn(
+  isLink ? baseLink : baseButton,
+  variantClasses,
+  className,
+);
+---
+
+{isLink ? (
+  <a href={href} class={classes} {...rest}>
+    <slot />
+  </a>
+) : (
+  <button class={classes} disabled={disabled} {...rest}>
+    <slot />
+  </button>
+)}
+
+<style>
+  button, a {
+    font-size: 0.9rem;
+  }
+  button[disabled], a[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+</style>

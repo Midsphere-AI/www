@@ -1,0 +1,272 @@
+@import "tailwindcss";
+@import "@fontsource/bricolage-grotesque/400.css";
+@import "@fontsource/bricolage-grotesque/500.css";
+@import "@fontsource/bricolage-grotesque/600.css";
+@import "@fontsource/bricolage-grotesque/700.css";
+
+@theme {
+  --font-sans: 'Bricolage Grotesque', sans-serif;
+  --font-junicode: 'Junicode', serif;
+
+  --color-paper: var(--zen-paper);
+  --color-dark: var(--zen-dark);
+  --color-muted: var(--zen-muted);
+  --color-subtle: var(--zen-subtle);
+  --color-coral: #F76F53;
+  --color-zen-blue: #6287f5;
+  --color-zen-green: #63f78b;
+
+  @keyframes zenReveal {
+    from {
+      opacity: 0;
+      filter: blur(4px);
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0px);
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes zenFade {
+    from {
+      opacity: 0;
+      filter: blur(4px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0px);
+    }
+  }
+
+  @keyframes zenScale {
+    from {
+      opacity: 0;
+      filter: blur(4px);
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0px);
+      transform: scale(1);
+    }
+  }
+
+  @keyframes heroEntrance {
+    from {
+      opacity: 0;
+      filter: blur(6px);
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0px);
+      transform: translateY(0);
+    }
+  }
+
+}
+
+:root {
+  --zen-paper: #f2f0e3;
+  --zen-dark: #2e2e2e;
+  --zen-muted: rgba(0, 0, 0, 0.04);
+  --zen-subtle: rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="dark"] {
+  --zen-paper: #1f1f1f;
+  --zen-dark: #d1cfc0;
+  --zen-muted: rgba(255, 255, 255, 0.04);
+  --zen-subtle: rgba(255, 255, 255, 0.07);
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  body,
+  body > * {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 500;
+    font-variation-settings: 'width' 100;
+  }
+
+  body {
+    min-height: max(100dvh, 64rem);
+    overflow-x: hidden;
+    text-wrap: balance;
+    background-color: var(--zen-paper);
+    color: var(--zen-dark);
+  }
+
+  @font-face {
+    font-family: 'Junicode';
+    src: url('/fonts/JunicodeVF-Roman.woff2') format('woff2');
+    font-weight: 100 900;
+    font-display: swap;
+    font-feature-settings: 'swsh' 1;
+  }
+
+  @font-face {
+    font-family: 'Junicode-Italic';
+    src: url('/fonts/JunicodeVF-Italic.woff2') format('woff2');
+    font-weight: 100 900;
+    font-display: swap;
+    font-feature-settings: 'swsh' 0;
+  }
+
+  h1 .italic {
+    font-family: 'Junicode-Italic', serif;
+    font-weight: 400;
+    font-feature-settings: 'swsh' 0;
+    font-style: normal;
+  }
+
+  .zen-link {
+    color: var(--color-coral, #F76F53);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  /* Scroll-triggered animations */
+  [data-animate] {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(24px);
+  }
+
+  [data-animate="fade"] {
+    transform: none;
+  }
+
+  [data-animate="scale"] {
+    transform: scale(0.95);
+  }
+
+  [data-animate].is-visible {
+    animation: zenReveal 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  }
+
+  [data-animate="fade"].is-visible {
+    animation-name: zenFade;
+  }
+
+  [data-animate="scale"].is-visible {
+    animation-name: zenScale;
+  }
+
+  [data-animate][data-delay="1"] { animation-delay: 0.15s; }
+  [data-animate][data-delay="2"] { animation-delay: 0.3s; }
+  [data-animate][data-delay="3"] { animation-delay: 0.45s; }
+  [data-animate][data-delay="4"] { animation-delay: 0.6s; }
+  [data-animate][data-delay="5"] { animation-delay: 0.75s; }
+  [data-animate][data-delay="6"] { animation-delay: 0.9s; }
+
+  /* Hero entrance (plays on page load, not scroll-triggered) */
+  .hero-child {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(20px);
+    animation: heroEntrance 0.6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+    animation-delay: calc(var(--hero-delay, 0) * 0.15s + 0.1s);
+  }
+
+  /* Section divider */
+  .section-divider {
+    position: relative;
+  }
+
+  .section-divider::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(100%, 800px);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--zen-dark) 50%, transparent);
+    opacity: 0.08;
+  }
+
+  /* Feature panel transitions */
+  .feature-panel {
+    opacity: 0;
+    transform: scale(0.97);
+    transition: opacity 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    pointer-events: none;
+  }
+
+  .feature-panel[data-active="true"] {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+
+  /* Navbar dropdown */
+  .nav-dropdown {
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .nav-dropdown-trigger:hover .nav-dropdown,
+  .nav-dropdown:hover {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .nav-dropdown-trigger:hover .nav-chevron {
+    transform: rotate(180deg);
+  }
+
+  .nav-chevron {
+    transition: transform 0.2s ease;
+  }
+
+  /* Dark mode shadow overrides */
+  [data-theme="dark"] .shadow-sm { --tw-shadow-color: rgba(0, 0, 0, 0.3); }
+  [data-theme="dark"] .shadow-lg { --tw-shadow-color: rgba(0, 0, 0, 0.4); }
+  [data-theme="dark"] .shadow-xl { --tw-shadow-color: rgba(0, 0, 0, 0.5); }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-animate],
+    [data-animate="fade"],
+    [data-animate="scale"] {
+      opacity: 1;
+      filter: none;
+      transform: none;
+      animation: none !important;
+    }
+
+    .hero-child {
+      opacity: 1;
+      filter: none;
+      transform: none;
+      animation: none !important;
+    }
+
+    .feature-panel {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .nav-dropdown {
+      transition: none;
+    }
+  }
+}

@@ -1,0 +1,227 @@
+---
+import PageLayout from './PageLayout.astro';
+import Badge from '../components/ui/Badge.astro';
+import { formatDate } from '../utils/formatDate';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  author: string;
+  image?: string;
+  tags: string[];
+  readingTime: number;
+}
+
+const { title, description, pubDate, updatedDate, author, image, tags, readingTime } = Astro.props;
+
+const breadcrumbs = [
+  { name: 'Home', url: 'https://midsphere.ai/' },
+  { name: 'Blog', url: 'https://midsphere.ai/blog/' },
+  { name: title, url: new URL(Astro.url.pathname, Astro.site).href },
+];
+---
+
+<PageLayout
+  title={title}
+  description={description}
+  ogImage={image}
+  ogType="article"
+  publishedDate={pubDate.toISOString()}
+  modifiedDate={updatedDate?.toISOString()}
+  author={author}
+  breadcrumbs={breadcrumbs}
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden py-20 lg:py-32">
+    <div class="absolute inset-0">
+      <img src={image || '/images/art/blog.jpg'} alt="" class="h-full w-full object-cover" aria-hidden="true" loading="eager" />
+      <div class="absolute inset-0 bg-dark/10 backdrop-blur-[1px] [mask-image:linear-gradient(to_top,black,transparent_60%)]"></div>
+      <div class="absolute inset-0 bg-dark/20 backdrop-blur-[3px] [mask-image:linear-gradient(to_top,black,transparent_40%)]"></div>
+      <div class="absolute inset-0 bg-dark/40 backdrop-blur-[8px] [mask-image:linear-gradient(to_top,black,transparent_25%)]"></div>
+    </div>
+    <div class="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <!-- Breadcrumbs -->
+      <nav aria-label="Breadcrumb" class="hero-child mb-6 text-sm" style="--hero-delay:0">
+        <ol class="flex items-center gap-2">
+          <li><a href="/" class="text-white/70 hover:text-white transition-colors">Home</a></li>
+          <li class="text-white/40" aria-hidden="true">/</li>
+          <li><a href="/blog" class="text-white/70 hover:text-white transition-colors">Blog</a></li>
+          <li class="text-white/40" aria-hidden="true">/</li>
+          <li aria-current="page" class="text-white/50 truncate max-w-48">{title}</li>
+        </ol>
+      </nav>
+
+      {tags.length > 0 && (
+        <div class="hero-child mb-4 flex flex-wrap gap-2" style="--hero-delay:1">
+          {tags.map((tag) => (
+            <span class="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+
+      <h1 class="hero-child text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl" style="--hero-delay:2">
+        {title}
+      </h1>
+
+      <div class="hero-child mt-4 flex flex-wrap items-center gap-4 text-sm text-white/70" style="--hero-delay:3">
+        <span>{author}</span>
+        <span aria-hidden="true">&middot;</span>
+        <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+        <span aria-hidden="true">&middot;</span>
+        <span>{readingTime} min read</span>
+      </div>
+
+      {updatedDate && (
+        <p class="mt-2 text-sm text-white/50">
+          Last updated: <time datetime={updatedDate.toISOString()}>{formatDate(updatedDate)}</time>
+        </p>
+      )}
+    </div>
+  </section>
+
+  <article class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="prose">
+      <slot />
+    </div>
+  </article>
+</PageLayout>
+
+<style>
+  .prose {
+    --prose-body: var(--zen-dark);
+    --prose-headings: var(--zen-dark);
+    color: var(--prose-body);
+    line-height: 1.75;
+    max-width: none;
+  }
+
+  .prose :global(h2) {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  .prose :global(h3) {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .prose :global(p) {
+    margin-bottom: 1.25rem;
+  }
+
+  .prose :global(a) {
+    color: var(--color-coral, #F76F53);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .prose :global(a:hover) {
+    color: var(--color-coral, #F76F53);
+    opacity: 0.8;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+  }
+
+  .prose :global(ul) {
+    list-style-type: disc;
+  }
+
+  .prose :global(ol) {
+    list-style-type: decimal;
+  }
+
+  .prose :global(li) {
+    margin-bottom: 0.5rem;
+  }
+
+  .prose :global(blockquote) {
+    border-left: 3px solid var(--color-coral, #F76F53);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: var(--prose-body);
+    opacity: 0.85;
+  }
+
+  .prose :global(code) {
+    background: var(--zen-muted);
+    border-radius: 0.25rem;
+    padding: 0.125rem 0.375rem;
+    font-size: 0.875em;
+  }
+
+  .prose :global(pre) {
+    background: var(--zen-dark);
+    color: var(--zen-paper);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+  }
+
+  [data-theme="dark"] .prose :global(pre) {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .prose :global(pre code) {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    font-size: 0.875rem;
+  }
+
+  .prose :global(img) {
+    border-radius: 0.75rem;
+    margin: 1.5rem 0;
+  }
+
+  .prose :global(hr) {
+    border: none;
+    border-top: 1px solid var(--zen-subtle);
+    margin: 2rem 0;
+  }
+
+  .prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+  }
+
+  .prose :global(th),
+  .prose :global(td) {
+    border: 1px solid var(--zen-subtle);
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+  }
+
+  .prose :global(th) {
+    font-weight: 600;
+    background: var(--zen-muted);
+  }
+
+  .prose :global(details) {
+    margin: 1rem 0;
+    border: 1px solid var(--zen-subtle);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .prose :global(summary) {
+    cursor: pointer;
+    font-weight: 600;
+  }
+</style>

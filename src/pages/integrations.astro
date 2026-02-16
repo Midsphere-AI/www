@@ -1,0 +1,264 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Button from '../components/ui/Button.astro';
+
+interface Platform {
+  name: string;
+  color: string;
+  darkColor?: string;
+}
+
+const platformsByCategory: Record<string, Platform[]> = {
+  Communication: [
+    { name: 'Slack', color: '#4A154B' },
+    { name: 'Discord', color: '#5865F2' },
+    { name: 'Teams', color: '#6264A7' },
+    { name: 'Gmail', color: '#EA4335' },
+    { name: 'Twilio', color: '#F22F46' },
+    { name: 'Intercom', color: '#6AFDEF' },
+    { name: 'SendGrid', color: '#1A82e2' },
+    { name: 'Mailgun', color: '#F06B66' },
+  ],
+  Development: [
+    { name: 'GitHub', color: '#181717', darkColor: '#ffffff' },
+    { name: 'GitLab', color: '#FC6D26' },
+    { name: 'Jira', color: '#0052CC' },
+    { name: 'Linear', color: '#5E6AD2' },
+    { name: 'Vercel', color: '#000000', darkColor: '#ffffff' },
+    { name: 'Railway', color: '#0B0D0E', darkColor: '#ffffff' },
+    { name: 'Netlify', color: '#00C7B7' },
+    { name: 'Bitbucket', color: '#0052CC' },
+  ],
+  Productivity: [
+    { name: 'Notion', color: '#000000', darkColor: '#ffffff' },
+    { name: 'Airtable', color: '#18BFFF' },
+    { name: 'Trello', color: '#0052CC' },
+    { name: 'Asana', color: '#F06A6A' },
+    { name: 'Monday', color: '#FF3D57' },
+    { name: 'ClickUp', color: '#7B68EE' },
+    { name: 'Todoist', color: '#E44232' },
+    { name: 'Basecamp', color: '#1D2D35' },
+  ],
+  Marketing: [
+    { name: 'HubSpot', color: '#FF7A59' },
+    { name: 'Mailchimp', color: '#FFE01B' },
+    { name: 'Salesforce', color: '#00A1E0' },
+    { name: 'Mixpanel', color: '#7856FF' },
+    { name: 'Segment', color: '#52BD94' },
+    { name: 'Amplitude', color: '#1570EF' },
+    { name: 'Brevo', color: '#0092FF' },
+    { name: 'ActiveCampaign', color: '#356AE6' },
+  ],
+  Storage: [
+    { name: 'Drive', color: '#4285F4' },
+    { name: 'Dropbox', color: '#0061FF' },
+    { name: 'OneDrive', color: '#0078D4' },
+    { name: 'Box', color: '#0061D5' },
+    { name: 'AWS S3', color: '#232F3E' },
+    { name: 'Backblaze', color: '#E21E29' },
+    { name: 'Wasabi', color: '#56B948' },
+    { name: 'Cloudflare R2', color: '#F38020' },
+  ],
+  Data: [
+    { name: 'PostgreSQL', color: '#4169E1' },
+    { name: 'MongoDB', color: '#47A248' },
+    { name: 'Supabase', color: '#3FCF8E' },
+    { name: 'Snowflake', color: '#29B5E8' },
+    { name: 'BigQuery', color: '#669DF6' },
+    { name: 'Sheets', color: '#34A853' },
+    { name: 'Redis', color: '#DC382D' },
+    { name: 'PlanetScale', color: '#000000', darkColor: '#ffffff' },
+  ],
+};
+
+const steps = [
+  {
+    number: '1',
+    title: 'Pick a connector',
+    description: 'Browse 500+ platforms organized by category. Find the tool you want to connect.',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>`,
+  },
+  {
+    number: '2',
+    title: 'Authorize with OAuth',
+    description: 'Click once, approve in a popup. No API keys, no webhooks, no configuration files.',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+  },
+  {
+    number: '3',
+    title: 'Start automating',
+    description: 'Use your connected tools in any task. Midsphere handles the API calls behind the scenes.',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/></svg>`,
+  },
+];
+
+const competitorComparison = [
+  { dimension: 'Setup method', midsphere: 'One-click OAuth', manus: 'MCP connectors + custom servers', genspark: 'Limited built-in', zapier: 'Zap builder (multi-step)', lindy: 'Pipedream dependency' },
+  { dimension: 'Time to connect', midsphere: '< 10 seconds', manus: '5–30 minutes', genspark: 'N/A (limited)', zapier: '2–15 minutes', lindy: '5–20 minutes' },
+  { dimension: 'Platform count', midsphere: '500+', manus: '~50 MCPs', genspark: '~20', zapier: '6,000+', lindy: '~200' },
+  { dimension: 'Auth management', midsphere: 'Automatic token refresh', manus: 'Manual API keys', genspark: 'Built-in only', zapier: 'Automatic', lindy: 'Via Pipedream' },
+  { dimension: 'Permissions', midsphere: 'Granular per-connector', manus: 'All-or-nothing', genspark: 'N/A', zapier: 'Per-zap', lindy: 'Per-workflow' },
+];
+---
+
+<PageLayout
+  title="Integrations — Midsphere AI"
+  description="Connect Midsphere to 500+ platforms with one-click OAuth. Slack, GitHub, Google Sheets, Notion, Salesforce, and more — no API keys or complex setup required."
+  breadcrumbs={[
+    { name: 'Home', url: 'https://midsphere.ai' },
+    { name: 'Integrations', url: 'https://midsphere.ai/integrations' },
+  ]}
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden py-20 lg:py-32">
+    <div class="absolute inset-0">
+      <img src="/images/art/integrations.jpg" alt="" class="h-full w-full object-cover" aria-hidden="true" loading="eager" />
+      <div class="absolute inset-0 bg-dark/10 backdrop-blur-[1px] [mask-image:linear-gradient(to_top,black,transparent_60%)]"></div>
+      <div class="absolute inset-0 bg-dark/20 backdrop-blur-[3px] [mask-image:linear-gradient(to_top,black,transparent_40%)]"></div>
+      <div class="absolute inset-0 bg-dark/40 backdrop-blur-[8px] [mask-image:linear-gradient(to_top,black,transparent_25%)]"></div>
+    </div>
+    <div class="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <span class="hero-child inline-flex items-center rounded-full bg-white/10 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-white" style="--hero-delay:0">
+        Integrations
+      </span>
+      <h1 class="hero-child mt-6 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl" style="--hero-delay:1">
+        500+ platforms. One click to connect.
+      </h1>
+      <p class="hero-child mx-auto mt-6 max-w-2xl text-lg text-white" style="--hero-delay:2">
+        Midsphere connects to the tools you already use through secure OAuth — no API keys, no webhooks, no complex setup. Just click, authorize, and automate.
+      </p>
+      <div class="hero-child mt-8" style="--hero-delay:3">
+        <Button href="https://platform.midsphere.ai" isPrimary class="bg-coral text-white shadow-lg hover:bg-coral/90">
+          Connect your first integration
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Grid -->
+  <section class="section-divider py-16 lg:py-28" aria-labelledby="categories-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 lg:mb-16" data-animate>
+        <h2 id="categories-heading" class="text-3xl font-semibold leading-[0.95] tracking-tight sm:text-4xl lg:text-5xl">
+          Browse by category
+        </h2>
+        <p class="mt-5 max-w-2xl text-base text-dark/60 sm:text-lg">
+          From communication to data pipelines — every tool your team uses, ready to connect.
+        </p>
+      </div>
+
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {Object.entries(platformsByCategory).map(([category, platforms], catIndex) => (
+          <div class="rounded-2xl border border-dark/[0.06] p-6" data-animate data-delay={(catIndex % 3 + 1).toString()}>
+            <h3 class="mb-4 text-sm font-semibold uppercase tracking-[0.15em] text-dark/40">{category}</h3>
+            <div class="flex flex-wrap gap-2">
+              {platforms.map((platform) => (
+                <span class="inline-flex items-center gap-2 rounded-full bg-subtle px-3 py-1.5 text-sm font-medium">
+                  <span class="h-2.5 w-2.5 rounded-full shrink-0" style={`background-color: ${platform.color}`}></span>
+                  {platform.name}
+                </span>
+              ))}
+            </div>
+            <p class="mt-4 text-xs text-dark/40">+ many more</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section-divider py-16 lg:py-28" aria-labelledby="how-integrations-work-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 text-center lg:mb-16" data-animate>
+        <span class="inline-flex items-center rounded-full bg-coral/10 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-coral">
+          Simple Setup
+        </span>
+        <h2 id="how-integrations-work-heading" class="mt-5 text-3xl font-semibold leading-[0.95] tracking-tight sm:text-4xl lg:text-5xl">
+          Three steps. That's it.
+        </h2>
+      </div>
+
+      <div class="relative">
+        <!-- Connecting line (desktop) -->
+        <div class="absolute left-1/2 top-8 hidden h-[calc(100%-4rem)] w-px -translate-x-1/2 bg-dark/[0.06] lg:block" aria-hidden="true"></div>
+
+        <div class="flex flex-col gap-10 lg:gap-16">
+          {steps.map((step, i) => (
+            <div class={`flex flex-col items-center gap-6 lg:flex-row ${i % 2 !== 0 ? 'lg:flex-row-reverse' : ''} lg:gap-12`} data-animate data-delay={(i + 1).toString()}>
+              <div class={`flex-1 ${i % 2 !== 0 ? 'lg:text-right' : ''}`}>
+                <h3 class="text-xl font-bold">{step.title}</h3>
+                <p class="mt-2 text-sm text-dark/60 leading-relaxed">{step.description}</p>
+              </div>
+              <div class="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-coral text-paper shadow-lg">
+                <span class="text-lg font-bold">{step.number}</span>
+              </div>
+              <div class="flex-1"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Competitor Comparison -->
+  <section class="section-divider py-16 lg:py-28" aria-labelledby="integration-comparison-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 text-center lg:mb-16" data-animate>
+        <h2 id="integration-comparison-heading" class="text-3xl font-semibold leading-[0.95] tracking-tight sm:text-4xl lg:text-5xl">
+          Integration setup: Midsphere vs the rest
+        </h2>
+        <p class="mx-auto mt-4 max-w-xl text-base text-dark/50 sm:text-lg">
+          We believe connecting your tools should take seconds, not hours.
+        </p>
+      </div>
+
+      <!-- Desktop table -->
+      <div class="hidden lg:block overflow-x-auto" data-animate data-delay="1">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-dark/[0.06]">
+              <th class="pb-4 text-left font-medium text-dark/40"></th>
+              <th class="pb-4 text-center font-semibold text-coral">Midsphere</th>
+              <th class="pb-4 text-center font-semibold text-dark/70">Manus</th>
+              <th class="pb-4 text-center font-semibold text-dark/70">Genspark</th>
+              <th class="pb-4 text-center font-semibold text-dark/70">Zapier</th>
+              <th class="pb-4 text-center font-semibold text-dark/70">Lindy</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-dark/[0.06]">
+            {competitorComparison.map((row) => (
+              <tr>
+                <td class="py-4 font-medium text-dark/70">{row.dimension}</td>
+                <td class="py-4 text-center font-semibold text-coral">{row.midsphere}</td>
+                <td class="py-4 text-center text-dark/60">{row.manus}</td>
+                <td class="py-4 text-center text-dark/60">{row.genspark}</td>
+                <td class="py-4 text-center text-dark/60">{row.zapier}</td>
+                <td class="py-4 text-center text-dark/60">{row.lindy}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile cards -->
+      <div class="flex flex-col gap-4 lg:hidden" data-animate data-delay="1">
+        {competitorComparison.map((row) => (
+          <div class="rounded-xl border border-dark/[0.06] p-4">
+            <div class="mb-3 text-xs font-semibold uppercase tracking-widest text-dark/40">{row.dimension}</div>
+            <div class="mb-2 flex items-center gap-2">
+              <span class="text-sm font-bold text-coral">Midsphere:</span>
+              <span class="text-sm text-coral">{row.midsphere}</span>
+            </div>
+            <div class="flex flex-col gap-1 text-sm text-dark/60">
+              <span>Manus: {row.manus}</span>
+              <span>Genspark: {row.genspark}</span>
+              <span>Zapier: {row.zapier}</span>
+              <span>Lindy: {row.lindy}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</PageLayout>

@@ -1,0 +1,303 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Button from '../components/ui/Button.astro';
+
+const features = [
+  {
+    title: 'Deep Research',
+    description: 'Analyze hundreds of sources in minutes. Get structured, cited reports on any topic — market analysis, competitive intelligence, academic reviews, or due diligence.',
+    details: [
+      'Pulls from 200+ sources per query including academic papers, news, and proprietary databases',
+      'Generates structured reports with inline citations and confidence scores',
+      'Exports to Markdown, PDF, or Google Docs automatically',
+    ],
+    art: '/images/art/research.jpg',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>`,
+  },
+  {
+    title: 'Full-Stack Builder',
+    description: 'Describe your app and Midsphere builds it — frontend, backend, database, deployment. From prompt to production in minutes, not weeks.',
+    details: [
+      'Generates Next.js, React, Vue, or Astro frontends with Tailwind styling',
+      'Provisions databases (PostgreSQL, Supabase, MongoDB) and writes schema migrations',
+      'Deploys to Vercel, Railway, or your own infrastructure with CI/CD',
+    ],
+    art: '/images/art/builder.jpg',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+  },
+  {
+    title: 'Workflow Automation',
+    description: 'Connect your tools and automate repetitive work across platforms. Describe triggers and actions in natural language — Midsphere handles the orchestration.',
+    details: [
+      'Natural language triggers: "When a new PR is opened, review the code and post to Slack"',
+      'Chains multi-step workflows across 500+ platforms without writing code',
+      'Scheduled tasks run daily, weekly, or on custom cron expressions',
+    ],
+    art: '/images/art/workflow.jpg',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/></svg>`,
+  },
+  {
+    title: 'Smart Integrations',
+    description: '500+ platforms connected via OAuth. Slack, GitHub, Google Sheets, Notion, Salesforce, and more — all one click away.',
+    details: [
+      'One-click OAuth authorization — no API keys to manage or webhooks to configure',
+      'Granular permissions: grant read-only or read-write per connector',
+      'Free plans include 6 connectors; Pro supports up to 24',
+    ],
+    art: '/images/art/integrations.jpg',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>`,
+  },
+  {
+    title: 'Sandboxed Execution',
+    description: 'Every task runs in an isolated cloud environment powered by E2B. Your data stays safe, your code runs clean, and nothing touches your host system.',
+    details: [
+      'Isolated containers with configurable CPU, RAM, and disk',
+      'Pre-installed runtimes: Node.js, Python, Go, Rust, and more',
+      'Pro users can bring their own E2B sandbox for full control',
+    ],
+    art: '/images/art/sandbox.jpg',
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>`,
+  },
+];
+
+const competitors = [
+  { name: 'Midsphere', autonomy: 'Full', pricing: 'Task-based ($0–19/mo)', integrations: '500+ OAuth', sandbox: 'E2B isolated', transparency: 'Full logs + step replay' },
+  { name: 'Manus', autonomy: 'Full', pricing: 'Credit-based ($0–199/mo)', integrations: 'MCP connectors', sandbox: 'Cloud VM', transparency: 'Limited logs' },
+  { name: 'Genspark', autonomy: 'Partial', pricing: 'Credit-based ($0–250/mo)', integrations: 'Limited', sandbox: 'None', transparency: 'Summary only' },
+  { name: 'Lindy', autonomy: 'Workflow', pricing: 'Credit-based ($0–300/mo)', integrations: 'Pipedream', sandbox: 'None', transparency: 'Step view' },
+  { name: 'OpenAI Operator', autonomy: 'Browser', pricing: 'ChatGPT Pro ($200/mo)', integrations: 'Browser-based', sandbox: 'Browser', transparency: 'Screen replay' },
+];
+
+const comparisonDimensions = ['Autonomy', 'Pricing model', 'Integrations', 'Sandbox', 'Transparency'] as const;
+---
+
+<PageLayout
+  title="Features — Midsphere AI"
+  description="Deep research, full-stack building, workflow automation, 500+ integrations, and sandboxed execution. Discover everything Midsphere can do as your AI companion."
+  breadcrumbs={[
+    { name: 'Home', url: 'https://midsphere.ai' },
+    { name: 'Features', url: 'https://midsphere.ai/features' },
+  ]}
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden py-20 lg:py-32">
+    <div class="absolute inset-0">
+      <img src="/images/art/features.jpg" alt="" class="h-full w-full object-cover" aria-hidden="true" loading="eager" />
+      <div class="absolute inset-0 bg-dark/10 backdrop-blur-[1px] [mask-image:linear-gradient(to_top,black,transparent_60%)]"></div>
+      <div class="absolute inset-0 bg-dark/20 backdrop-blur-[3px] [mask-image:linear-gradient(to_top,black,transparent_40%)]"></div>
+      <div class="absolute inset-0 bg-dark/40 backdrop-blur-[8px] [mask-image:linear-gradient(to_top,black,transparent_25%)]"></div>
+    </div>
+    <div class="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <span class="hero-child inline-flex items-center rounded-full bg-white/10 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-white" style="--hero-delay:0">
+        AI Companion
+      </span>
+      <h1 class="hero-child mt-6 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl" style="--hero-delay:1">
+        An AI companion that works <em class="font-junicode italic not-italic">with</em> you — or <em class="font-junicode italic not-italic">for</em> you.
+      </h1>
+      <p class="hero-child mx-auto mt-6 max-w-2xl text-lg text-white" style="--hero-delay:2">
+        Midsphere isn't just another chatbot. It's an autonomous AI employee that researches, builds, automates, and executes — across 500+ platforms, in its own sandboxed environment.
+      </p>
+      <div class="hero-child mt-8" style="--hero-delay:3">
+        <Button href="https://platform.midsphere.ai" isPrimary class="bg-coral text-white shadow-lg hover:bg-coral/90">
+          Get started free
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Deep-Dives -->
+  <section class="section-divider py-16 lg:py-28" aria-labelledby="features-deep-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-16" data-animate>
+        <h2 id="features-deep-heading" class="text-3xl font-semibold leading-[0.95] tracking-tight sm:text-4xl lg:text-5xl">
+          Everything you need, built in
+        </h2>
+        <p class="mt-5 max-w-2xl text-base text-dark/60 sm:text-lg">
+          Five core capabilities that make Midsphere more than a tool — it's a teammate.
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-20 lg:gap-28">
+        {features.map((feature, i) => (
+          <div class={`flex flex-col gap-8 lg:gap-16 ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`} data-animate data-delay={(i % 3 + 1).toString()}>
+            <!-- Art panel -->
+            <div class="relative aspect-[4/3] overflow-hidden rounded-2xl lg:w-1/2">
+              <img src={feature.art} alt="" class="h-full w-full object-cover" aria-hidden="true" loading="lazy" />
+              <div class="absolute inset-0 backdrop-blur-[3px] [mask-image:linear-gradient(to_top,black,transparent_60%)]"></div>
+              <div class="absolute bottom-4 left-4 flex items-center gap-2 rounded-lg bg-dark/80 px-3 py-2 text-paper backdrop-blur-sm">
+                <span set:html={feature.icon} />
+                <span class="text-sm font-semibold">{feature.title}</span>
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class="flex flex-col justify-center lg:w-1/2">
+              <h3 class="text-2xl font-bold tracking-tight sm:text-3xl">{feature.title}</h3>
+              <p class="mt-4 text-base text-dark/60 leading-relaxed">{feature.description}</p>
+              <ul class="mt-6 flex flex-col gap-3">
+                {feature.details.map((detail) => (
+                  <li class="flex items-start gap-3 text-sm text-dark/70">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0 text-coral" aria-hidden="true">
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                    <span>{detail}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Your AI, Your Way -->
+  <section class="section-divider py-16 lg:py-28" aria-labelledby="modes-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 text-center lg:mb-16" data-animate>
+        <span class="inline-flex items-center rounded-full bg-coral/10 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-coral">
+          Two Modes
+        </span>
+        <h2 id="modes-heading" class="mt-5 text-3xl font-semibold leading-[0.95] tracking-tight sm:text-4xl lg:text-5xl">
+          Your AI, your way
+        </h2>
+        <p class="mx-auto mt-4 max-w-xl text-base text-dark/50 sm:text-lg">
+          Work alongside Midsphere as a co-pilot, or hand over entire workflows and let it run autonomously.
+        </p>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2" data-animate data-delay="1">
+        <!-- Companion Mode -->
+        <div class="relative overflow-hidden rounded-2xl border-2 border-dark/[0.06] p-8 lg:p-10">
+          <div class="relative">
+            <div class="flex items-center gap-3">
+              <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-zen-blue/10">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zen-blue">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold">Companion Mode</h3>
+            </div>
+            <p class="mt-4 text-sm text-dark/60 leading-relaxed">
+              Midsphere works alongside you as a co-pilot. Ask questions, request research, get code suggestions, and review outputs before they're finalized. You stay in the loop at every step.
+            </p>
+            <ul class="mt-6 flex flex-col gap-2.5">
+              {['Interactive chat with step-by-step guidance', 'Review and approve before actions execute', 'Perfect for learning, exploring, and iterating'].map((item) => (
+                <li class="flex items-center gap-2 text-sm text-dark/70">
+                  <div class="h-1.5 w-1.5 rounded-full bg-zen-blue shrink-0"></div>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Autopilot Mode -->
+        <div class="relative overflow-hidden rounded-2xl border-2 border-dark/[0.06] p-8 lg:p-10">
+          <div class="relative">
+            <div class="flex items-center gap-3">
+              <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-coral/10">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-coral">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                  <path d="M2 17l10 5 10-5"/>
+                  <path d="M2 12l10 5 10-5"/>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold">Autopilot Mode</h3>
+            </div>
+            <p class="mt-4 text-sm text-dark/60 leading-relaxed">
+              Hand Midsphere the helm. Describe what you need, and it plans, executes, and delivers — autonomously handling multi-step tasks across your connected platforms.
+            </p>
+            <ul class="mt-6 flex flex-col gap-2.5">
+              {['Fully autonomous task execution from a single prompt', 'Chains tools, APIs, and platforms without intervention', 'Ideal for recurring workflows and complex builds'].map((item) => (
+                <li class="flex items-center gap-2 text-sm text-dark/70">
+                  <div class="h-1.5 w-1.5 rounded-full bg-coral shrink-0"></div>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Competitor Comparison -->
+  <section class="section-divider py-16 lg:py-28" aria-labelledby="comparison-heading">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 text-center lg:mb-16" data-animate>
+        <h2 id="comparison-heading" class="text-3xl font-semibold leading-[0.95] tracking-tight sm:text-4xl lg:text-5xl">
+          How Midsphere stacks up
+        </h2>
+        <p class="mx-auto mt-4 max-w-xl text-base text-dark/50 sm:text-lg">
+          A transparent look at how we compare to other AI agent platforms.
+        </p>
+      </div>
+
+      <!-- Desktop table -->
+      <div class="hidden lg:block overflow-x-auto" data-animate data-delay="1">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-dark/[0.06]">
+              <th class="pb-4 text-left font-medium text-dark/40"></th>
+              {competitors.map((c) => (
+                <th class={`pb-4 text-center font-semibold ${c.name === 'Midsphere' ? 'text-coral' : 'text-dark/70'}`}>
+                  {c.name}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-dark/[0.06]">
+            {comparisonDimensions.map((dim) => (
+              <tr>
+                <td class="py-4 font-medium text-dark/70">{dim}</td>
+                {competitors.map((c) => {
+                  const key = dim.toLowerCase().replace(' ', '') as keyof typeof c;
+                  const val = dim === 'Autonomy' ? c.autonomy : dim === 'Pricing model' ? c.pricing : dim === 'Integrations' ? c.integrations : dim === 'Sandbox' ? c.sandbox : c.transparency;
+                  return (
+                    <td class={`py-4 text-center ${c.name === 'Midsphere' ? 'font-semibold text-coral' : 'text-dark/60'}`}>
+                      {val}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Mobile: Midsphere vs each competitor -->
+      <div class="flex flex-col gap-6 lg:hidden" data-animate data-delay="1">
+        {competitors.filter(c => c.name !== 'Midsphere').map((comp) => (
+          <div class="rounded-xl border border-dark/[0.06] p-5">
+            <div class="mb-4 flex items-center justify-between">
+              <span class="text-sm font-bold text-coral">Midsphere</span>
+              <span class="text-xs text-dark/40">vs</span>
+              <span class="text-sm font-semibold text-dark/70">{comp.name}</span>
+            </div>
+            <div class="divide-y divide-dark/[0.06] text-sm">
+              {comparisonDimensions.map((dim) => {
+                const mVal = dim === 'Autonomy' ? competitors[0].autonomy : dim === 'Pricing model' ? competitors[0].pricing : dim === 'Integrations' ? competitors[0].integrations : dim === 'Sandbox' ? competitors[0].sandbox : competitors[0].transparency;
+                const cVal = dim === 'Autonomy' ? comp.autonomy : dim === 'Pricing model' ? comp.pricing : dim === 'Integrations' ? comp.integrations : dim === 'Sandbox' ? comp.sandbox : comp.transparency;
+                return (
+                  <div class="flex items-center justify-between gap-4 py-3">
+                    <span class="text-dark/40 text-xs shrink-0">{dim}</span>
+                    <div class="flex items-center gap-3 text-right">
+                      <span class="text-coral font-medium">{mVal}</span>
+                      <span class="text-dark/20">|</span>
+                      <span class="text-dark/60">{cVal}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</PageLayout>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://midsphere.ai/sitemap-index.xml

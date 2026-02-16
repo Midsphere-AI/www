@@ -1,0 +1,46 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Navbar from '../components/global/Navbar.astro';
+import Footer from '../components/global/Footer.astro';
+import type { BreadcrumbItem } from '../utils/seo';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  canonicalURL?: string;
+  ogType?: 'website' | 'article';
+  publishedDate?: string;
+  modifiedDate?: string;
+  author?: string;
+  noindex?: boolean;
+  breadcrumbs?: BreadcrumbItem[];
+  faqItems?: { question: string; answer: string }[];
+}
+
+const { title, description, ogImage, canonicalURL, ogType, publishedDate, modifiedDate, author, noindex, breadcrumbs, faqItems } = Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  ogImage={ogImage}
+  canonicalURL={canonicalURL}
+  ogType={ogType}
+  publishedDate={publishedDate}
+  modifiedDate={modifiedDate}
+  author={author}
+  noindex={noindex}
+  breadcrumbs={breadcrumbs}
+  faqItems={faqItems}
+>
+  <slot name="head" slot="head" />
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-lg focus:bg-dark focus:px-4 focus:py-2 focus:text-paper">
+    Skip to content
+  </a>
+  <Navbar />
+  <main id="main-content">
+    <slot />
+  </main>
+  <Footer />
+</BaseLayout>
