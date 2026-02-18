@@ -1,0 +1,13 @@
+spec:
+  name: midsphere-www
+  static_sites:
+    - name: www
+      github:
+        repo: Midsphere-AI/www
+        branch: master
+        deploy_on_push: true
+      build_command: npm install && npm run build
+      output_dir: dist
+      environment_slug: node-js
+      routes:
+        - path: /
