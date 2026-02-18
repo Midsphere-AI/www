@@ -2,10 +2,9 @@ spec:
   name: midsphere-www
   static_sites:
     - name: www
-      github:
-        repo: Midsphere-AI/www
+      git:
         branch: master
-        deploy_on_push: true
+        repo_clone_url: https://github.com/Midsphere-AI/www.git
       build_command: npm install && npm run build
       output_dir: dist
       environment_slug: node-js
