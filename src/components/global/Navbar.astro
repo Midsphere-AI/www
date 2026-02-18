@@ -5,15 +5,11 @@ import Button from '../ui/Button.astro';
 
 <nav class="bg-paper py-3 lg:py-6 border-b border-dark/[0.04]" aria-label="Main navigation">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-2 lg:grid-cols-[auto_1fr_auto] items-center gap-2">
+    <div class="grid grid-cols-2 lg:grid-cols-[1fr_auto_1fr] items-center gap-2">
       <!-- Logo -->
       <a href="/" class="flex items-center gap-2 text-lg font-bold text-dark" aria-label="Midsphere home">
-        <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="32" cy="32" r="10" stroke="currentColor" stroke-width="3" class="text-coral" />
-          <circle cx="32" cy="32" r="20" stroke="currentColor" stroke-width="2.5" class="text-coral" />
-          <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="2" class="text-coral" />
-        </svg>
-        <span>Midsphere</span>
+        <img src="/logo-dark.png" alt="Midsphere" class="only-light h-14 w-auto logo-bold-dark" />
+        <img src="/logo-light.png" alt="Midsphere" class="only-dark h-14 w-auto logo-bold-light" />
       </a>
 
       <!-- Desktop Nav -->
@@ -58,15 +54,20 @@ import Button from '../ui/Button.astro';
                 <span class="text-sm font-semibold text-dark">Community</span>
                 <span class="text-xs text-dark/50">Join us on Discord</span>
               </a>
+              <a href="https://orbiter.midsphere.ai" target="_blank" rel="noopener noreferrer" class="flex flex-col rounded-md px-3 py-2 hover:bg-subtle transition-colors">
+                <span class="text-sm font-semibold text-dark">Orbiter Docs</span>
+                <span class="text-xs text-dark/50">Framework documentation</span>
+              </a>
             </div>
           </div>
         </div>
 
         <a href="/pricing" class="text-sm text-dark hover:text-coral transition-colors">Pricing</a>
+        <a href="/orbiter" class="text-sm text-dark hover:text-coral transition-colors">Orbiter</a>
       </div>
 
       <!-- Right side -->
-      <div class="flex items-center justify-end gap-3">
+      <div class="flex items-center justify-end justify-self-end gap-3">
         <button
           id="theme-toggle"
           type="button"
@@ -86,8 +87,8 @@ import Button from '../ui/Button.astro';
             <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
           </svg>
         </button>
-        <Button href="https://platform.midsphere.ai" isPrimary class="hidden lg:flex text-sm py-3">
-          Get started
+        <Button href="/#hero" isPrimary class="hidden lg:flex text-sm py-3">
+          Join waitlist
         </Button>
         <!-- Mobile theme toggle -->
         <button
