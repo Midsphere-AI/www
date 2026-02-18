@@ -8,9 +8,9 @@ interface Props {
 const { class: className } = Astro.props;
 
 const tiers = [
-  { name: 'Free', price: '$0', period: '/mo', href: 'https://platform.midsphere.ai', highlighted: false },
-  { name: 'Lite', price: '$9', period: '/mo', href: 'https://platform.midsphere.ai', highlighted: true },
-  { name: 'Pro', price: '$19', period: '/mo', href: 'https://platform.midsphere.ai', highlighted: false },
+  { name: 'Free', price: '$0', period: '/mo', highlighted: false },
+  { name: 'Lite', price: '$9', period: '/mo', highlighted: true },
+  { name: 'Pro', price: '$19', period: '/mo', highlighted: false },
 ];
 
 type FeatureValue = string | boolean;
@@ -139,8 +139,13 @@ const features: FeatureRow[] = [
       ))}
     </div>
 
+    <!-- Waitlist CTA -->
+    <p class="mt-10 text-center text-sm text-dark/60" data-animate data-delay="2">
+      <a href="/#hero" class="text-coral font-semibold hover:underline">Join the waitlist</a> to get early access when we launch.
+    </p>
+
     <!-- Trust line -->
-    <p class="mt-8 text-center text-[11px] text-dark/30">
+    <p class="mt-4 text-center text-[11px] text-dark/30">
       All plans include SSL encryption, OAuth integrations, and isolated sandbox environments.
     </p>
   </div>

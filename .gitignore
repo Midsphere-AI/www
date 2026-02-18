@@ -1,5 +1,8 @@
 # build output
 dist/
+
+# SQLite data
+data/
 # generated types
 .astro/
 

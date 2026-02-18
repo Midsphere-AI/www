@@ -14,7 +14,7 @@ export function organizationSchema() {
     url: SITE_URL,
     description:
       'An AI agent that handles any task from a prompt. Build full apps with databases, research topics deeply, create media, or automate workflows across 500+ platforms.',
-    logo: `${SITE_URL}/images/logo.png`,
+    logo: `${SITE_URL}/logo-dark.png`,
   };
 }
 
