@@ -88,6 +88,11 @@ html:not([data-theme="dark"]) .only-dark { display: none !important; }
     drop-shadow(0.5px 0 0 #d1cfc0) drop-shadow(-0.5px 0 0 #d1cfc0)
     drop-shadow(0 0.5px 0 #d1cfc0) drop-shadow(0 -0.5px 0 #d1cfc0);
 }
+.logo-bold-footer {
+  filter:
+    drop-shadow(0.5px 0 0 var(--zen-paper)) drop-shadow(-0.5px 0 0 var(--zen-paper))
+    drop-shadow(0 0.5px 0 var(--zen-paper)) drop-shadow(0 -0.5px 0 var(--zen-paper));
+}
 
 [data-theme="dark"] {
   --zen-paper: #1f1f1f;
