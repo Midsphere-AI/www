@@ -75,6 +75,20 @@
   --zen-subtle: rgba(0, 0, 0, 0.06);
 }
 
+[data-theme="dark"] .only-light { display: none !important; }
+html:not([data-theme="dark"]) .only-dark { display: none !important; }
+
+.logo-bold-dark {
+  filter:
+    drop-shadow(0.5px 0 0 #2e2e2e) drop-shadow(-0.5px 0 0 #2e2e2e)
+    drop-shadow(0 0.5px 0 #2e2e2e) drop-shadow(0 -0.5px 0 #2e2e2e);
+}
+.logo-bold-light {
+  filter:
+    drop-shadow(0.5px 0 0 #d1cfc0) drop-shadow(-0.5px 0 0 #d1cfc0)
+    drop-shadow(0 0.5px 0 #d1cfc0) drop-shadow(0 -0.5px 0 #d1cfc0);
+}
+
 [data-theme="dark"] {
   --zen-paper: #1f1f1f;
   --zen-dark: #d1cfc0;
