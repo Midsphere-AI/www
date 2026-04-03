@@ -9,6 +9,7 @@ import node from '@astrojs/node';
 export default defineConfig({
   site: 'https://midsphere.ai',
   adapter: node({ mode: 'standalone' }),
+  server: { host: '0.0.0.0', port: 4321 },
   integrations: [sitemap(), mdx()],
   vite: {
     plugins: [tailwindcss()],
