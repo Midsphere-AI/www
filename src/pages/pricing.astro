@@ -1,11 +1,11 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
-import Button from '../components/ui/Button.astro';
+import { cn } from '../utils/merge';
 
 const tiers = [
-  { name: 'Free', price: '$0', period: '/mo', href: 'https://platform.midsphere.ai', highlighted: false, cta: 'Get started' },
-  { name: 'Lite', price: '$9', period: '/mo', href: 'https://platform.midsphere.ai', highlighted: true, cta: 'Start Lite' },
-  { name: 'Pro', price: '$19', period: '/mo', href: 'https://platform.midsphere.ai', highlighted: false, cta: 'Go Pro' },
+  { name: 'Free', price: '$0', period: '/mo', href: 'https://platform.midsphere.ai', highlighted: false, cta: 'Start free', desc: 'Get started with the basics.' },
+  { name: 'Lite', price: '$9', period: '/mo', href: 'https://platform.midsphere.ai', highlighted: true, cta: 'Get Lite', desc: 'For individuals shipping real work.' },
+  { name: 'Pro', price: '$19', period: '/mo', href: 'https://platform.midsphere.ai', highlighted: false, cta: 'Go Pro', desc: 'For power users and small teams.' },
 ];
 
 type FeatureValue = string | boolean;
@@ -72,235 +72,239 @@ const pricingFaqItems = [
   faqItems={pricingFaqItems}
 >
   <!-- Hero -->
-  <section class="relative overflow-hidden py-20 lg:py-32">
-    <div class="absolute inset-0">
-      <img src="/images/art/pricing.jpg" alt="" class="h-full w-full object-cover" aria-hidden="true" loading="eager" />
-      <div class="absolute inset-0 bg-dark/10 backdrop-blur-[1px] [mask-image:linear-gradient(to_top,black,transparent_60%)]"></div>
-      <div class="absolute inset-0 bg-dark/20 backdrop-blur-[3px] [mask-image:linear-gradient(to_top,black,transparent_40%)]"></div>
-      <div class="absolute inset-0 bg-dark/40 backdrop-blur-[8px] [mask-image:linear-gradient(to_top,black,transparent_25%)]"></div>
-    </div>
-    <div class="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-      <span class="hero-child inline-flex items-center rounded-full bg-white/10 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-white" style="--hero-delay:0">
-        Pricing
-      </span>
-      <h1 class="hero-child mt-6 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl" style="--hero-delay:1">
+  <section class="py-14 lg:py-20">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <span class="hero-child text-[12px] font-medium tracking-wide text-dark/50" style="--hero-delay:0">Pricing</span>
+      <h1 class="hero-child mt-2 text-xl font-normal tracking-tight text-dark md:text-3xl lg:text-4xl" style="--hero-delay:1">
         Know exactly how many tasks you're getting.
       </h1>
-      <p class="hero-child mx-auto mt-6 max-w-2xl text-lg text-white" style="--hero-delay:2">
+      <p class="hero-child mt-4 max-w-2xl text-base text-dark/60 sm:text-lg" style="--hero-delay:2">
         No credit anxiety. No per-minute surprises. No dual-currency confusion. With Midsphere, 1 task = 1 task. Period.
       </p>
-      <div class="hero-child mt-8" style="--hero-delay:3">
-        <Button href="https://platform.midsphere.ai" isPrimary class="bg-coral text-white shadow-lg hover:bg-coral/90">
-          Start free — no credit card
-        </Button>
-      </div>
     </div>
   </section>
 
-  <!-- Pricing Table -->
-  <section class="section-divider py-16 lg:py-28" aria-labelledby="plans-heading">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="mb-12 text-center lg:mb-16" data-animate>
-        <h2 id="plans-heading" class="text-3xl font-semibold leading-[0.95] tracking-tight sm:text-4xl lg:text-5xl">
+  <!-- Pricing Table — matches landing page Pricing.astro pattern -->
+  <section class="section-divider py-14 lg:py-20" aria-labelledby="plans-heading">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-8 lg:mb-10" data-animate>
+        <span class="text-[12px] font-medium tracking-wide text-dark/50">Plans</span>
+        <h2 id="plans-heading" class="mt-2 text-xl font-normal tracking-tight text-dark md:text-3xl lg:text-4xl">
           Choose your plan
         </h2>
-        <p class="mx-auto mt-4 max-w-xl text-base text-dark/50 sm:text-lg">
+        <p class="mt-3 max-w-2xl text-base text-dark/60 sm:text-lg">
           Start free and scale as you grow. All plans include SSL encryption, OAuth integrations, and isolated sandbox environments.
         </p>
       </div>
 
-      <!-- Desktop comparison table -->
-      <div class="hidden md:block" data-animate data-delay="1">
-        <div class="grid grid-cols-4 gap-x-4 border-b border-dark/[0.06] pb-8">
-          <div />
-          {tiers.map((tier) => (
-            <div class="text-center">
+      <!-- Desktop: three columns (matching Pricing.astro) -->
+      <div class="hidden md:grid md:grid-cols-3 md:gap-0" data-animate data-delay="1">
+        {tiers.map((tier, ti) => (
+          <div class={cn(
+            'flex flex-col px-6 py-8 lg:px-8 lg:py-10',
+            ti === 1 && 'border-x border-dark/[0.06]',
+          )}>
+            {/* Plan name */}
+            <div class="flex items-center gap-2">
+              <span class="text-[12px] font-medium tracking-wide text-dark/50">{tier.name}</span>
               {tier.highlighted && (
-                <div class="mb-2">
-                  <span class="inline-flex items-center rounded-full bg-coral px-2.5 py-0.5 text-[10px] font-semibold tracking-wide text-white">
-                    Most popular
-                  </span>
-                </div>
-              )}
-              {!tier.highlighted && <div class="mb-2 h-[18px]" />}
-              <div class="text-[11px] font-semibold uppercase tracking-[0.2em] text-dark/40">{tier.name}</div>
-              <div class="mt-2 flex items-baseline justify-center gap-0.5">
-                <span class="text-3xl font-bold tracking-tight">{tier.price}</span>
-                <span class="text-sm text-dark/35">{tier.period}</span>
-              </div>
-              <div class="mt-4">
-                <Button href={tier.href} isPrimary={tier.highlighted} isBordered={!tier.highlighted} class="text-sm py-2.5 px-5 w-full">
-                  {tier.cta}
-                </Button>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div class="divide-y divide-dark/[0.06]">
-          {features.map((row) => (
-            <div class="grid grid-cols-4 gap-x-4 py-4">
-              <div class="flex items-center text-sm font-medium text-dark/70">{row.label}</div>
-              {row.values.map((val, i) => (
-                <div class={`flex items-center justify-center text-sm ${i === 1 ? 'font-semibold text-coral' : 'text-dark/60'}`}>
-                  {typeof val === 'boolean'
-                    ? val
-                      ? (
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class={i === 1 ? 'text-coral' : 'text-dark/40'} aria-label="Included">
-                          <path d="M20 6 9 17l-5-5" />
-                        </svg>
-                      )
-                      : (
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-dark/20" aria-label="Not included">
-                          <path d="M18 6 6 18M6 6l12 12" />
-                        </svg>
-                      )
-                    : <span>{val}</span>
-                  }
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <!-- Mobile: stacked tiers -->
-      <div class="divide-y divide-dark/[0.06] md:hidden" data-animate data-delay="1">
-        {tiers.map((tier) => (
-          <div class="py-10 first:pt-0 last:pb-0">
-            <div class="flex items-center gap-3">
-              <div class="text-[11px] font-semibold uppercase tracking-[0.2em] text-dark/40">{tier.name}</div>
-              {tier.highlighted && (
-                <span class="inline-flex items-center rounded-full bg-coral px-2.5 py-0.5 text-[10px] font-semibold tracking-wide text-white">
-                  Most popular
-                </span>
+                <span class="rounded bg-dark px-1.5 py-0.5 text-[9px] font-medium tracking-wide text-paper">Popular</span>
               )}
             </div>
-            <div class="mt-3 flex items-baseline gap-0.5">
-              <span class="text-4xl font-bold tracking-tight">{tier.price}</span>
-              <span class="text-sm text-dark/35">{tier.period}</span>
+
+            {/* Price */}
+            <div class="mt-4 flex items-baseline gap-0.5">
+              <span class="text-5xl font-normal tracking-tight lg:text-6xl">{tier.price}</span>
+              <span class="text-sm text-dark/40">{tier.period}</span>
             </div>
-            <ul class="mt-6 space-y-3" role="list">
+            <p class="mt-2 text-[13px] text-dark/60">{tier.desc}</p>
+
+            {/* CTA */}
+            <a
+              href={tier.href}
+              class={cn(
+                'mt-6 block rounded-lg py-2.5 text-center text-[13px] font-medium transition-colors duration-200',
+                tier.highlighted
+                  ? 'bg-dark text-paper hover:bg-dark/85'
+                  : 'ring-1 ring-dark/[0.1] text-dark hover:bg-subtle',
+              )}
+            >
+              {tier.cta}
+            </a>
+
+            {/* Features */}
+            <ul class="mt-8 space-y-3 border-t border-dark/[0.06] pt-6" role="list">
               {features.map((row) => {
-                const idx = tiers.indexOf(tier);
-                const val = row.values[idx];
-                if (val === false) return null;
+                const val = row.values[ti];
+                const included = val !== false;
                 return (
-                  <li class="flex items-center gap-2.5 text-sm text-dark/70">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-coral" aria-hidden="true">
-                      <path d="M20 6 9 17l-5-5" />
-                    </svg>
-                    <span>
-                      {typeof val === 'boolean' ? row.label : `${val} ${row.label.toLowerCase()}`}
-                    </span>
+                  <li class={cn(
+                    'flex items-start gap-2 text-[13px]',
+                    included ? 'text-dark/55' : 'text-dark/20',
+                  )}>
+                    {included ? (
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0 text-dark/30" aria-hidden="true">
+                        <path d="M20 6 9 17l-5-5" />
+                      </svg>
+                    ) : (
+                      <span class="mt-0.5 flex h-3.5 w-3.5 shrink-0 items-center justify-center">
+                        <span class="block h-px w-2 bg-dark/12"></span>
+                      </span>
+                    )}
+                    <span>{typeof val === 'boolean' ? row.label : `${val} ${row.label.toLowerCase()}`}</span>
                   </li>
                 );
               })}
             </ul>
-            <div class="mt-6">
-              <Button href={tier.href} isPrimary={tier.highlighted} isBordered={!tier.highlighted} class="w-full">
-                {tier.cta}
-              </Button>
-            </div>
           </div>
         ))}
       </div>
+
+      <!-- Mobile: stacked -->
+      <div class="space-y-10 md:hidden" data-animate data-delay="1">
+        {tiers.map((tier, ti) => (
+          <div class={cn(ti > 0 && 'border-t border-dark/[0.06] pt-10')}>
+            <div class="flex items-center gap-2">
+              <span class="text-[12px] font-medium tracking-wide text-dark/50">{tier.name}</span>
+              {tier.highlighted && (
+                <span class="rounded bg-dark px-1.5 py-0.5 text-[9px] font-medium tracking-wide text-paper">Popular</span>
+              )}
+            </div>
+            <div class="mt-3 flex items-baseline gap-0.5">
+              <span class="text-5xl font-normal tracking-tight">{tier.price}</span>
+              <span class="text-sm text-dark/40">{tier.period}</span>
+            </div>
+            <p class="mt-2 text-[13px] text-dark/60">{tier.desc}</p>
+            <a
+              href={tier.href}
+              class={cn(
+                'mt-5 block rounded-lg py-2.5 text-center text-[13px] font-medium transition-colors duration-200',
+                tier.highlighted
+                  ? 'bg-dark text-paper hover:bg-dark/85'
+                  : 'ring-1 ring-dark/[0.1] text-dark hover:bg-subtle',
+              )}
+            >
+              {tier.cta}
+            </a>
+            <ul class="mt-6 space-y-2.5" role="list">
+              {features.map((row) => {
+                const val = row.values[ti];
+                if (val === false) return null;
+                return (
+                  <li class="flex items-start gap-2 text-[13px] text-dark/55">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0 text-dark/30" aria-hidden="true">
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                    <span>{typeof val === 'boolean' ? row.label : `${val} ${row.label.toLowerCase()}`}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <p class="mt-12 text-[11px] text-dark/25" data-animate data-delay="2">
+        All plans include SSL encryption, OAuth integrations, and isolated sandbox environments. No credit card required.
+      </p>
     </div>
   </section>
 
   <!-- Why Tasks, Not Credits -->
-  <section class="section-divider py-16 lg:py-28" aria-labelledby="why-tasks-heading">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="mb-12 text-center lg:mb-16" data-animate>
-        <span class="inline-flex items-center rounded-full bg-coral/10 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-coral">
-          Why We're Different
-        </span>
-        <h2 id="why-tasks-heading" class="mt-5 text-3xl font-semibold leading-[0.95] tracking-tight sm:text-4xl lg:text-5xl">
+  <section class="section-divider py-14 lg:py-20" aria-labelledby="why-tasks-heading">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-8 lg:mb-10" data-animate>
+        <span class="text-[12px] font-medium tracking-wide text-dark/50">Why tasks</span>
+        <h2 id="why-tasks-heading" class="mt-2 text-xl font-normal tracking-tight text-dark md:text-3xl lg:text-4xl">
           Why tasks, not credits
         </h2>
-        <p class="mx-auto mt-4 max-w-xl text-base text-dark/50 sm:text-lg">
+        <p class="mt-3 max-w-2xl text-base text-dark/60 sm:text-lg">
           Most AI agent platforms charge in ways designed to confuse you. We chose a different path.
         </p>
       </div>
 
-      <div class="grid gap-6 sm:grid-cols-2" data-animate data-delay="1">
+      <div class="grid gap-4 sm:grid-cols-3" data-animate data-delay="1">
         <!-- Problem cards -->
-        <div class="rounded-2xl border border-dark/[0.06] p-6 lg:p-8">
-          <div class="flex items-center gap-2 text-dark/40">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-            <span class="text-xs font-semibold uppercase tracking-widest">Credit anxiety</span>
+        <div class="rounded-2xl border border-dark/[0.06] bg-surface p-6">
+          <div class="flex items-center gap-2 text-dark/30">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            <span class="text-[11px] font-medium tracking-wide">Credit anxiety</span>
           </div>
-          <p class="mt-3 text-sm text-dark/60 leading-relaxed">
-            Manus users burn 500–900 credits per task with no way to preview the cost. A single complex task can wipe out a monthly allowance without warning.
+          <p class="mt-3 text-sm text-dark/55 leading-relaxed">
+            Manus users burn 500–900 credits per task with no way to preview the cost.
           </p>
         </div>
 
-        <div class="rounded-2xl border border-dark/[0.06] p-6 lg:p-8">
-          <div class="flex items-center gap-2 text-dark/40">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-            <span class="text-xs font-semibold uppercase tracking-widest">Dual-currency confusion</span>
+        <div class="rounded-2xl border border-dark/[0.06] bg-surface p-6">
+          <div class="flex items-center gap-2 text-dark/30">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            <span class="text-[11px] font-medium tracking-wide">Dual-currency</span>
           </div>
-          <p class="mt-3 text-sm text-dark/60 leading-relaxed">
-            Some platforms charge in "actions" plus separate "vendor credits," creating a two-tier system where you're never sure which currency a feature costs.
+          <p class="mt-3 text-sm text-dark/55 leading-relaxed">
+            "Actions" plus "vendor credits" — two currencies where you never know the real cost.
           </p>
         </div>
 
-        <div class="rounded-2xl border border-dark/[0.06] p-6 lg:p-8">
-          <div class="flex items-center gap-2 text-dark/40">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-            <span class="text-xs font-semibold uppercase tracking-widest">Per-minute surprises</span>
+        <div class="rounded-2xl border border-dark/[0.06] bg-surface p-6">
+          <div class="flex items-center gap-2 text-dark/30">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            <span class="text-[11px] font-medium tracking-wide">Per-minute billing</span>
           </div>
-          <p class="mt-3 text-sm text-dark/60 leading-relaxed">
-            Platforms like Bland.ai charge per minute of execution time. A task that takes longer than expected can result in an unexpectedly large bill.
+          <p class="mt-3 text-sm text-dark/55 leading-relaxed">
+            Charged per minute of execution. A slow task = an unexpectedly large bill.
           </p>
         </div>
+      </div>
 
-        <!-- Solution card (highlighted) -->
-        <div class="rounded-2xl border-2 border-coral/20 bg-coral/[0.03] p-6 lg:p-8">
-          <div class="flex items-center gap-2 text-coral">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-            <span class="text-xs font-semibold uppercase tracking-widest">Midsphere's answer</span>
-          </div>
-          <p class="mt-3 text-sm text-dark/70 leading-relaxed font-medium">
-            1 task = 1 task. Period. No matter how many API calls, tool chains, or computation steps are involved. You always know exactly how many tasks you have left and what each one costs.
-          </p>
+      <!-- Solution callout: dark panel -->
+      <div class="mt-4 rounded-2xl bg-[#1a1a1a] p-6 sm:p-8" data-animate data-delay="2">
+        <div class="flex items-center gap-2 text-white/40">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          <span class="text-[11px] font-medium tracking-wide">Midsphere's answer</span>
         </div>
+        <p class="mt-3 text-lg font-normal tracking-tight text-white/90 sm:text-xl lg:text-2xl">
+          1 task = 1 task. Period.
+        </p>
+        <p class="mt-2 text-sm text-white/40 leading-relaxed max-w-xl">
+          No matter how many API calls, tool chains, or computation steps are involved. You always know exactly how many tasks you have left and what each one costs.
+        </p>
       </div>
     </div>
   </section>
 
   <!-- Competitor Pricing Comparison -->
-  <section class="section-divider py-16 lg:py-28" aria-labelledby="pricing-comparison-heading">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="mb-12 text-center lg:mb-16" data-animate>
-        <h2 id="pricing-comparison-heading" class="text-3xl font-semibold leading-[0.95] tracking-tight sm:text-4xl lg:text-5xl">
+  <section class="section-divider py-14 lg:py-20" aria-labelledby="pricing-comparison-heading">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-8 lg:mb-10" data-animate>
+        <span class="text-[12px] font-medium tracking-wide text-dark/50">Comparison</span>
+        <h2 id="pricing-comparison-heading" class="mt-2 text-xl font-normal tracking-tight text-dark md:text-3xl lg:text-4xl">
           Price comparison across the industry
         </h2>
-        <p class="mx-auto mt-4 max-w-xl text-base text-dark/50 sm:text-lg">
+        <p class="mt-3 max-w-2xl text-base text-dark/60 sm:text-lg">
           Midsphere Pro costs less than most competitors' entry-level paid plans.
         </p>
       </div>
 
       <!-- Desktop table -->
-      <div class="hidden lg:block overflow-x-auto" data-animate data-delay="1">
+      <div class="hidden lg:block overflow-x-auto rounded-xl border border-dark/[0.06]" data-animate data-delay="1">
         <table class="w-full text-sm">
           <thead>
-            <tr class="border-b border-dark/[0.06]">
-              <th class="pb-4 text-left font-medium text-dark/40">Platform</th>
-              <th class="pb-4 text-center font-medium text-dark/40">Free tier</th>
-              <th class="pb-4 text-center font-medium text-dark/40">Mid tier</th>
-              <th class="pb-4 text-center font-medium text-dark/40">Top tier</th>
-              <th class="pb-4 text-center font-medium text-dark/40">Pricing model</th>
+            <tr class="border-b border-dark/[0.06] bg-dark/[0.02]">
+              <th class="px-5 py-4 text-left font-medium text-dark/40">Platform</th>
+              <th class="px-4 py-4 text-center font-medium text-dark/40">Free tier</th>
+              <th class="px-4 py-4 text-center font-medium text-dark/40">Mid tier</th>
+              <th class="px-4 py-4 text-center font-medium text-dark/40">Top tier</th>
+              <th class="px-4 py-4 text-center font-medium text-dark/40">Pricing model</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-dark/[0.06]">
             {competitorPricing.map((row) => (
-              <tr class={row.highlight ? 'bg-coral/[0.03]' : ''}>
-                <td class={`py-4 font-semibold ${row.highlight ? 'text-coral' : 'text-dark/70'}`}>{row.name}</td>
-                <td class={`py-4 text-center ${row.highlight ? 'text-coral font-semibold' : 'text-dark/60'}`}>{row.free}</td>
-                <td class={`py-4 text-center ${row.highlight ? 'text-coral font-semibold' : 'text-dark/60'}`}>{row.mid}</td>
-                <td class={`py-4 text-center ${row.highlight ? 'text-coral font-semibold' : 'text-dark/60'}`}>{row.top}</td>
-                <td class={`py-4 text-center ${row.highlight ? 'text-coral font-semibold' : 'text-dark/60'}`}>{row.model}</td>
+              <tr class={cn('transition-colors hover:bg-dark/[0.01]', row.highlight && 'bg-dark/[0.02]')}>
+                <td class={`px-5 py-4 font-medium ${row.highlight ? 'text-dark' : 'text-dark/70'}`}>{row.name}</td>
+                <td class={`px-4 py-4 text-center ${row.highlight ? 'font-medium text-dark' : 'text-dark/60'}`}>{row.free}</td>
+                <td class={`px-4 py-4 text-center ${row.highlight ? 'font-medium text-dark' : 'text-dark/60'}`}>{row.mid}</td>
+                <td class={`px-4 py-4 text-center ${row.highlight ? 'font-medium text-dark' : 'text-dark/60'}`}>{row.top}</td>
+                <td class={`px-4 py-4 text-center ${row.highlight ? 'font-medium text-dark' : 'text-dark/60'}`}>{row.model}</td>
               </tr>
             ))}
           </tbody>
@@ -310,23 +314,23 @@ const pricingFaqItems = [
       <!-- Mobile cards -->
       <div class="flex flex-col gap-4 lg:hidden" data-animate data-delay="1">
         {competitorPricing.map((row) => (
-          <div class={`rounded-xl border p-4 ${row.highlight ? 'border-coral/20 bg-coral/[0.03]' : 'border-dark/[0.06]'}`}>
+          <div class={`rounded-xl border p-4 ${row.highlight ? 'border-dark/[0.06] bg-dark/[0.02]' : 'border-dark/[0.06]'}`}>
             <div class="flex items-center justify-between">
-              <span class={`text-sm font-bold ${row.highlight ? 'text-coral' : 'text-dark/70'}`}>{row.name}</span>
-              <span class={`text-xs rounded-full px-2 py-0.5 ${row.highlight ? 'bg-coral/10 text-coral' : 'bg-dark/[0.04] text-dark/40'} font-semibold`}>{row.model}</span>
+              <span class={`text-sm font-medium ${row.highlight ? 'text-dark' : 'text-dark/70'}`}>{row.name}</span>
+              <span class={`text-xs rounded-full px-2 py-0.5 ${row.highlight ? 'bg-dark/[0.04] text-dark' : 'bg-dark/[0.04] text-dark/40'} font-medium`}>{row.model}</span>
             </div>
             <div class="mt-3 grid grid-cols-3 gap-2 text-center text-sm">
               <div>
-                <div class="text-[10px] uppercase tracking-wider text-dark/30">Free</div>
-                <div class={row.highlight ? 'font-semibold text-coral' : 'text-dark/60'}>{row.free}</div>
+                <div class="text-[10px] tracking-wide text-dark/30">Free</div>
+                <div class={row.highlight ? 'font-medium text-dark' : 'text-dark/60'}>{row.free}</div>
               </div>
               <div>
-                <div class="text-[10px] uppercase tracking-wider text-dark/30">Mid</div>
-                <div class={row.highlight ? 'font-semibold text-coral' : 'text-dark/60'}>{row.mid}</div>
+                <div class="text-[10px] tracking-wide text-dark/30">Mid</div>
+                <div class={row.highlight ? 'font-medium text-dark' : 'text-dark/60'}>{row.mid}</div>
               </div>
               <div>
-                <div class="text-[10px] uppercase tracking-wider text-dark/30">Top</div>
-                <div class={row.highlight ? 'font-semibold text-coral' : 'text-dark/60'}>{row.top}</div>
+                <div class="text-[10px] tracking-wide text-dark/30">Top</div>
+                <div class={row.highlight ? 'font-medium text-dark' : 'text-dark/60'}>{row.top}</div>
               </div>
             </div>
           </div>
@@ -335,36 +339,45 @@ const pricingFaqItems = [
     </div>
   </section>
 
-  <!-- Pricing FAQ -->
-  <section class="section-divider py-12 lg:py-28" aria-labelledby="pricing-faq-heading">
-    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="mb-12 text-center" data-animate>
-        <h2 id="pricing-faq-heading" class="text-3xl font-semibold leading-[0.95] tracking-tight sm:text-4xl lg:text-5xl">Pricing FAQ</h2>
-      </div>
+  <!-- Pricing FAQ — two-column layout matching landing page FAQ.astro -->
+  <section class="section-divider py-14 lg:py-20" aria-labelledby="pricing-faq-heading">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-10 lg:grid-cols-[1fr_2fr] lg:gap-16">
 
-      <div class="divide-y divide-dark/[0.06]" data-animate data-delay="1">
-        {pricingFaqItems.map((item) => (
-          <details class="group py-5">
-            <summary class="flex cursor-pointer items-center justify-between text-left font-semibold">
-              <span>{item.question}</span>
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="shrink-0 ml-4 text-dark/40 transition-transform duration-200 group-open:rotate-180"
-                aria-hidden="true"
-              >
-                <path d="m6 9 6 6 6-6" />
-              </svg>
-            </summary>
-            <p class="mt-3 text-sm leading-relaxed text-dark/60">{item.answer}</p>
-          </details>
-        ))}
+        {/* Left: heading (sticky on desktop) */}
+        <div class="lg:sticky lg:top-24 lg:self-start" data-animate>
+          <span class="text-[12px] font-medium tracking-wide text-dark/50">FAQ</span>
+          <h2 id="pricing-faq-heading" class="mt-2 text-xl font-normal tracking-tight text-dark md:text-3xl lg:text-4xl">
+            Pricing questions
+          </h2>
+          <p class="mt-3 text-base text-dark/60 sm:text-lg">
+            Everything you need to know about how pricing works.
+          </p>
+        </div>
+
+        {/* Right: accordion */}
+        <div data-animate data-delay="1">
+          {pricingFaqItems.map((item, i) => (
+            <details class={cn(
+              'group',
+              i > 0 && 'border-t border-dark/[0.06]',
+            )}>
+              <summary class="flex cursor-pointer items-start justify-between gap-4 py-5 text-[15px] font-medium text-dark/80 transition-colors duration-200 hover:text-dark">
+                <span>{item.question}</span>
+                <span class="relative mt-1 flex h-5 w-5 shrink-0 items-center justify-center">
+                  {/* Horizontal bar (always visible) */}
+                  <span class="absolute h-px w-3 bg-dark/30 transition-colors duration-200 group-hover:bg-dark/50"></span>
+                  {/* Vertical bar (rotates away on open) */}
+                  <span class="absolute h-3 w-px bg-dark/30 transition-all duration-200 group-open:rotate-90 group-open:opacity-0 group-hover:bg-dark/50"></span>
+                </span>
+              </summary>
+              <div class="pb-5 pr-10">
+                <p class="text-[13px] leading-relaxed text-dark/60">{item.answer}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+
       </div>
     </div>
   </section>

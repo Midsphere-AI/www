@@ -3,22 +3,22 @@ import MobileMenu from './MobileMenu.astro';
 import Button from '../ui/Button.astro';
 ---
 
-<nav class="bg-paper py-3 lg:py-6 border-b border-dark/[0.04]" aria-label="Main navigation">
+<nav class="bg-paper py-1 lg:py-1.5" aria-label="Main navigation">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-2 lg:grid-cols-[1fr_auto_1fr] items-center gap-2">
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-2 text-lg font-bold text-dark" aria-label="Midsphere home">
-        <img src="/logo-dark.png" alt="Midsphere" class="only-light h-14 w-auto logo-bold-dark" />
-        <img src="/logo-light.png" alt="Midsphere" class="only-dark h-14 w-auto logo-bold-light" />
+      <a href="/" class="flex items-center gap-2 text-lg font-bold text-dark/40 hover:text-dark/60 transition-colors" aria-label="Midsphere home">
+        <img src="/logo-dark.png" alt="Midsphere" class="only-light h-6 w-auto opacity-70" />
+        <img src="/logo-light.png" alt="Midsphere" class="only-dark h-6 w-auto opacity-70" />
       </a>
 
       <!-- Desktop Nav -->
-      <div class="hidden lg:flex items-center justify-center gap-8">
+      <div class="hidden lg:flex items-center justify-center gap-5">
         <!-- Product dropdown -->
         <div class="nav-dropdown-trigger relative">
-          <button type="button" class="flex items-center gap-1 text-sm text-dark hover:text-coral transition-colors">
+          <button type="button" class="flex items-center gap-1 text-xs text-dark/40 hover:text-dark/70 transition-colors">
             Product
-            <svg class="nav-chevron h-3.5 w-3.5 text-dark/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            <svg class="nav-chevron h-3 w-3 text-dark/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
           </button>
           <div class="nav-dropdown absolute left-1/2 top-full z-50 -translate-x-1/2 pt-2">
             <div class="w-64 rounded-lg border-2 border-dark bg-paper p-3 shadow-sm">
@@ -40,9 +40,9 @@ import Button from '../ui/Button.astro';
 
         <!-- Resources dropdown -->
         <div class="nav-dropdown-trigger relative">
-          <button type="button" class="flex items-center gap-1 text-sm text-dark hover:text-coral transition-colors">
+          <button type="button" class="flex items-center gap-1 text-xs text-dark/40 hover:text-dark/70 transition-colors">
             Resources
-            <svg class="nav-chevron h-3.5 w-3.5 text-dark/40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            <svg class="nav-chevron h-3 w-3 text-dark/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
           </button>
           <div class="nav-dropdown absolute left-1/2 top-full z-50 -translate-x-1/2 pt-2">
             <div class="w-56 rounded-lg border-2 border-dark bg-paper p-3 shadow-sm">
@@ -62,54 +62,52 @@ import Button from '../ui/Button.astro';
           </div>
         </div>
 
-        <a href="/pricing" class="text-sm text-dark hover:text-coral transition-colors">Pricing</a>
-        <a href="/orbiter" class="text-sm text-dark hover:text-coral transition-colors">Orbiter</a>
+        <a href="/pricing" class="text-xs text-dark/40 hover:text-dark/70 transition-colors">Pricing</a>
+        <a href="/orbiter" class="text-xs text-dark/40 hover:text-dark/70 transition-colors">Orbiter</a>
       </div>
 
       <!-- Right side -->
-      <div class="flex items-center justify-end justify-self-end gap-3">
+      <div class="flex items-center justify-end justify-self-end gap-2">
         <button
           id="theme-toggle"
           type="button"
-          class="hidden lg:flex items-center justify-center rounded-lg p-2 text-dark hover:text-coral transition-colors"
+          class="hidden lg:flex items-center justify-center rounded-md p-1.5 text-dark/30 hover:text-dark/60 transition-colors"
           aria-label="Toggle dark mode"
         >
-          <!-- Sun icon (shown in dark mode) -->
-          <svg class="theme-icon-sun hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="theme-icon-sun hidden" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="4" />
             <path d="M12 2v2" /><path d="M12 20v2" />
             <path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" />
             <path d="M2 12h2" /><path d="M20 12h2" />
             <path d="m6.34 17.66-1.41 1.41" /><path d="m19.07 4.93-1.41 1.41" />
           </svg>
-          <!-- Moon icon (shown in light mode) -->
-          <svg class="theme-icon-moon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="theme-icon-moon hidden" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
           </svg>
         </button>
-        <Button href="/#hero" isPrimary class="hidden lg:flex text-sm py-3">
-          Join waitlist
+        <Button href="https://platform.midsphere.ai/login" class="hidden lg:flex text-[11px] py-1.5 px-3 bg-dark/5 text-dark/50 hover:bg-dark/10 hover:text-dark/70">
+          Login
         </Button>
         <!-- Mobile theme toggle -->
         <button
           type="button"
-          class="theme-toggle-mobile lg:hidden flex items-center justify-center rounded-lg p-2 text-dark hover:text-coral transition-colors"
+          class="theme-toggle-mobile lg:hidden flex items-center justify-center rounded-md p-1.5 text-dark/30 hover:text-dark/60 transition-colors"
           aria-label="Toggle dark mode"
         >
-          <svg class="theme-icon-sun hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="theme-icon-sun hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="4" />
             <path d="M12 2v2" /><path d="M12 20v2" />
             <path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" />
             <path d="M2 12h2" /><path d="M20 12h2" />
             <path d="m6.34 17.66-1.41 1.41" /><path d="m19.07 4.93-1.41 1.41" />
           </svg>
-          <svg class="theme-icon-moon hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="theme-icon-moon hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
           </svg>
         </button>
         <!-- Mobile hamburger -->
-        <label for="mobile-menu-toggle" class="lg:hidden cursor-pointer p-2" aria-label="Open menu">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <label for="mobile-menu-toggle" class="lg:hidden cursor-pointer p-1.5 text-dark/40" aria-label="Open menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="3" y1="6" x2="21" y2="6" />
             <line x1="3" y1="12" x2="21" y2="12" />
             <line x1="3" y1="18" x2="21" y2="18" />

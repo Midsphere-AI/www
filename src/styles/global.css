@@ -1,20 +1,23 @@
 @import "tailwindcss";
-@import "@fontsource/bricolage-grotesque/400.css";
-@import "@fontsource/bricolage-grotesque/500.css";
-@import "@fontsource/bricolage-grotesque/600.css";
-@import "@fontsource/bricolage-grotesque/700.css";
 
 @theme {
-  --font-sans: 'Bricolage Grotesque', sans-serif;
-  --font-junicode: 'Junicode', serif;
+  --font-sans: var(--ms-font-sans);
+  --font-junicode: var(--ms-font-display);
 
-  --color-paper: var(--zen-paper);
-  --color-dark: var(--zen-dark);
-  --color-muted: var(--zen-muted);
-  --color-subtle: var(--zen-subtle);
-  --color-coral: #F76F53;
-  --color-zen-blue: #6287f5;
-  --color-zen-green: #63f78b;
+  --color-paper: var(--ms-paper);
+  --color-dark: var(--ms-dark);
+  --color-muted: var(--ms-muted);
+  --color-subtle: var(--ms-subtle);
+  --color-coral: var(--ms-coral);
+  --color-mid-blue: var(--ms-blue);
+  --color-mid-green: var(--ms-green);
+  --color-surface: var(--ms-surface);
+  --color-elevated: var(--ms-elevated);
+  --color-accent: var(--ms-accent);
+  --color-border: var(--ms-border);
+  --color-border-subtle: var(--ms-border-subtle);
+  --color-border-strong: var(--ms-border-strong);
+  --color-danger: var(--ms-danger);
 
   @keyframes zenReveal {
     from {
@@ -53,6 +56,11 @@
     }
   }
 
+  @keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
   @keyframes heroEntrance {
     from {
       opacity: 0;
@@ -69,10 +77,23 @@
 }
 
 :root {
-  --zen-paper: #f2f0e3;
-  --zen-dark: #2e2e2e;
-  --zen-muted: rgba(0, 0, 0, 0.04);
-  --zen-subtle: rgba(0, 0, 0, 0.06);
+  --ms-font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --ms-font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --ms-paper: #f8f8f7;
+  --ms-dark: #1a1a1a;
+  --ms-muted: rgba(0, 0, 0, 0.03);
+  --ms-subtle: rgba(0, 0, 0, 0.04);
+  --ms-surface: #f2f2f1;
+  --ms-elevated: #eaeae9;
+  --ms-accent: #1a1a1a;
+  --ms-border: rgba(0, 0, 0, 0.08);
+  --ms-border-subtle: rgba(0, 0, 0, 0.04);
+  --ms-border-strong: rgba(0, 0, 0, 0.15);
+  --ms-coral: #1a1a1a;
+  --ms-blue: #0081f2;
+  --ms-green: #0081f2;
+  --ms-panel-dark: #111111;
+  --ms-danger: #e53e3e;
 }
 
 [data-theme="dark"] .only-light { display: none !important; }
@@ -80,26 +101,38 @@ html:not([data-theme="dark"]) .only-dark { display: none !important; }
 
 .logo-bold-dark {
   filter:
-    drop-shadow(0.5px 0 0 #2e2e2e) drop-shadow(-0.5px 0 0 #2e2e2e)
-    drop-shadow(0 0.5px 0 #2e2e2e) drop-shadow(0 -0.5px 0 #2e2e2e);
+    drop-shadow(0.5px 0 0 var(--ms-dark)) drop-shadow(-0.5px 0 0 var(--ms-dark))
+    drop-shadow(0 0.5px 0 var(--ms-dark)) drop-shadow(0 -0.5px 0 var(--ms-dark));
 }
 .logo-bold-light {
   filter:
-    drop-shadow(0.5px 0 0 #d1cfc0) drop-shadow(-0.5px 0 0 #d1cfc0)
-    drop-shadow(0 0.5px 0 #d1cfc0) drop-shadow(0 -0.5px 0 #d1cfc0);
+    drop-shadow(0.5px 0 0 var(--ms-dark)) drop-shadow(-0.5px 0 0 var(--ms-dark))
+    drop-shadow(0 0.5px 0 var(--ms-dark)) drop-shadow(0 -0.5px 0 var(--ms-dark));
 }
 .logo-bold-footer {
   filter:
-    drop-shadow(0.5px 0 0 var(--zen-paper)) drop-shadow(-0.5px 0 0 var(--zen-paper))
-    drop-shadow(0 0.5px 0 var(--zen-paper)) drop-shadow(0 -0.5px 0 var(--zen-paper));
+    drop-shadow(0.5px 0 0 var(--ms-paper)) drop-shadow(-0.5px 0 0 var(--ms-paper))
+    drop-shadow(0 0.5px 0 var(--ms-paper)) drop-shadow(0 -0.5px 0 var(--ms-paper));
 }
 
 [data-theme="dark"] {
-  --zen-paper: #1f1f1f;
-  --zen-dark: #d1cfc0;
-  --zen-muted: rgba(255, 255, 255, 0.04);
-  --zen-subtle: rgba(255, 255, 255, 0.07);
+  --ms-paper: #111111;
+  --ms-dark: #e8e8e6;
+  --ms-muted: rgba(255, 255, 255, 0.03);
+  --ms-subtle: rgba(255, 255, 255, 0.05);
+  --ms-surface: #1a1a1a;
+  --ms-elevated: #222222;
+  --ms-accent: #e8e8e6;
+  --ms-coral: #e8e8e6;
+  --ms-blue: #4da6ff;
+  --ms-green: #4da6ff;
+  --ms-panel-dark: #0a0a0a;
+  --ms-border: rgba(255, 255, 255, 0.08);
+  --ms-border-subtle: rgba(255, 255, 255, 0.05);
+  --ms-border-strong: rgba(255, 255, 255, 0.15);
+  --ms-danger: #fc8181;
 }
+
 
 @layer base {
   * {
@@ -115,45 +148,26 @@ html:not([data-theme="dark"]) .only-dark { display: none !important; }
 
   body,
   body > * {
-    font-family: 'Bricolage Grotesque', sans-serif;
-    font-optical-sizing: auto;
+    font-family: var(--ms-font-sans);
     font-style: normal;
     font-weight: 500;
-    font-variation-settings: 'width' 100;
   }
 
   body {
     min-height: max(100dvh, 64rem);
     overflow-x: hidden;
     text-wrap: balance;
-    background-color: var(--zen-paper);
-    color: var(--zen-dark);
-  }
-
-  @font-face {
-    font-family: 'Junicode';
-    src: url('/fonts/JunicodeVF-Roman.woff2') format('woff2');
-    font-weight: 100 900;
-    font-display: swap;
-    font-feature-settings: 'swsh' 1;
-  }
-
-  @font-face {
-    font-family: 'Junicode-Italic';
-    src: url('/fonts/JunicodeVF-Italic.woff2') format('woff2');
-    font-weight: 100 900;
-    font-display: swap;
-    font-feature-settings: 'swsh' 0;
+    background-color: var(--ms-paper);
+    color: var(--ms-dark);
   }
 
   h1 .italic {
-    font-family: 'Junicode-Italic', serif;
+    font-family: var(--ms-font-display);
     font-weight: 400;
-    font-feature-settings: 'swsh' 0;
-    font-style: normal;
+    font-style: italic;
   }
 
-  .zen-link {
+  .mid-link {
     color: var(--color-coral, #F76F53);
     text-decoration: underline;
     text-underline-offset: 4px;
@@ -215,7 +229,7 @@ html:not([data-theme="dark"]) .only-dark { display: none !important; }
     transform: translateX(-50%);
     width: min(100%, 800px);
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--zen-dark) 50%, transparent);
+    background: linear-gradient(90deg, transparent, var(--ms-dark) 50%, transparent);
     opacity: 0.08;
   }
 
@@ -287,5 +301,35 @@ html:not([data-theme="dark"]) .only-dark { display: none !important; }
     .nav-dropdown {
       transition: none;
     }
+  }
+
+  /* Homepage hero mockup frame */
+  .hero-mockup-bg {
+    background:
+      radial-gradient(ellipse at 30% 70%, color-mix(in srgb, var(--ms-coral) 18%, transparent), transparent 50%),
+      radial-gradient(ellipse at 70% 30%, color-mix(in srgb, var(--ms-blue) 14%, transparent), transparent 50%),
+      radial-gradient(ellipse at 50% 50%, color-mix(in srgb, var(--ms-green) 6%, transparent), transparent 60%),
+      var(--ms-panel-dark);
+  }
+
+  /* Per-feature panel backgrounds */
+  .feature-bg-0 { background: radial-gradient(ellipse at 60% 40%, color-mix(in srgb, var(--ms-coral) 16%, transparent), transparent 50%), radial-gradient(ellipse at 30% 70%, color-mix(in srgb, var(--ms-blue) 8%, transparent), transparent 50%), var(--ms-panel-dark); }
+  .feature-bg-1 { background: radial-gradient(ellipse at 40% 60%, color-mix(in srgb, var(--ms-blue) 16%, transparent), transparent 50%), radial-gradient(ellipse at 70% 30%, color-mix(in srgb, var(--ms-coral) 8%, transparent), transparent 50%), var(--ms-panel-dark); }
+  .feature-bg-2 { background: radial-gradient(ellipse at 50% 40%, color-mix(in srgb, var(--ms-green) 14%, transparent), transparent 50%), radial-gradient(ellipse at 30% 70%, color-mix(in srgb, var(--ms-blue) 8%, transparent), transparent 50%), var(--ms-panel-dark); }
+  .feature-bg-3 { background: radial-gradient(ellipse at 30% 50%, color-mix(in srgb, var(--ms-blue) 14%, transparent), transparent 50%), radial-gradient(ellipse at 70% 50%, color-mix(in srgb, var(--ms-coral) 12%, transparent), transparent 50%), var(--ms-panel-dark); }
+  .feature-bg-4 { background: radial-gradient(ellipse at 60% 60%, color-mix(in srgb, var(--ms-green) 12%, transparent), transparent 50%), radial-gradient(ellipse at 40% 30%, color-mix(in srgb, var(--ms-blue) 12%, transparent), transparent 50%), var(--ms-panel-dark); }
+
+  /* Dot grid texture overlay */
+  .hero-dot-grid {
+    position: relative;
+  }
+
+  .hero-dot-grid::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
   }
 }

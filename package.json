@@ -13,7 +13,6 @@
     "@astrojs/node": "^9.5.3",
     "@astrojs/rss": "^4.0.15",
     "@astrojs/sitemap": "^3.7.0",
-    "@fontsource/bricolage-grotesque": "^5.2.10",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.17.1",
     "better-sqlite3": "^12.6.2",

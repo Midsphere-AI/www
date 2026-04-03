@@ -41,27 +41,27 @@ const aspects = [
 ] as const;
 ---
 
-<section id="finetune" class={cn('section-divider py-12 lg:py-24', className)} aria-labelledby="finetune-heading">
+<section id="finetune" class={cn('section-divider py-8 lg:py-14', className)} aria-labelledby="finetune-heading">
   <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-    <div class="mb-12 lg:mb-16" data-animate>
+    <div class="mb-8 lg:mb-10" data-animate>
       <h2 id="finetune-heading" class="text-3xl font-semibold leading-[0.95] tracking-tight sm:text-4xl lg:text-5xl">
         Finetune every aspect of your agent
       </h2>
-      <p class="mt-5 max-w-2xl text-base text-dark/60 sm:text-lg">
+      <p class="mt-3 max-w-2xl text-base text-dark/60 sm:text-lg">
         Midsphere isn't a black box. Swap models, wire in custom tools, shape behaviour — make it yours.
       </p>
     </div>
 
-    <div class="divide-y divide-dark/[0.06]" data-animate data-delay="1">
+    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-animate data-delay="1">
       {aspects.map((aspect) => (
-        <div class="flex items-baseline justify-between gap-4 py-5 sm:gap-8">
-          <div class="min-w-0">
-            <h3 class="text-base font-semibold sm:text-lg">{aspect.label}</h3>
-            <p class="mt-1 text-sm text-dark/50">{aspect.description}</p>
+        <div class="rounded-xl bg-subtle/80 border border-dark/[0.08] p-5 transition-all duration-300 ease-out hover:bg-subtle hover:shadow-md hover:border-dark/[0.12] hover:-translate-y-0.5">
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <h3 class="text-base font-semibold">{aspect.label}</h3>
+            <span class="shrink-0 rounded-full bg-dark/[0.04] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-dark/40">
+              {aspect.tag}
+            </span>
           </div>
-          <span class="shrink-0 rounded-full bg-dark/[0.04] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-dark/40">
-            {aspect.tag}
-          </span>
+          <p class="text-sm text-dark/50">{aspect.description}</p>
         </div>
       ))}
     </div>
