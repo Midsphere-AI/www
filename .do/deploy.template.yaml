@@ -1,12 +1,20 @@
 spec:
   name: midsphere-www
-  static_sites:
+  services:
     - name: www
       git:
         branch: master
         repo_clone_url: https://github.com/Midsphere-AI/www.git
       build_command: npm install && npm run build
-      output_dir: dist
+      run_command: node dist/server/entry.mjs
       environment_slug: node-js
+      instance_size_slug: apps-s-1vcpu-0.5gb
+      instance_count: 1
+      http_port: 4321
       routes:
         - path: /
+      envs:
+        - key: HOST
+          value: "0.0.0.0"
+        - key: PORT
+          value: "4321"
